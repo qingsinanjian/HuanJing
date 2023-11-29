@@ -18,11 +18,11 @@ public class MainPanel : MonoBehaviour
     {
         btn_Start = transform.Find("btn_Start").GetComponent<Button>();
         btn_Start.onClick.AddListener(OnStartButtonClick);
-        btn_Shop = transform.Find("btn_Shop").GetComponent<Button>();
+        btn_Shop = transform.Find("btns/btn_Shop").GetComponent<Button>();
         btn_Shop.onClick.AddListener(OnShopButtonClick);
-        btn_Rank = transform.Find("btn_Rank").GetComponent<Button>();
+        btn_Rank = transform.Find("btns/btn_Rank").GetComponent<Button>();
         btn_Rank.onClick.AddListener(OnRankButtonClick);
-        btn_Sound = transform.Find("btn_Sound").GetComponent<Button>();
+        btn_Sound = transform.Find("btns/btn_Sound").GetComponent<Button>();
         btn_Sound.onClick.AddListener(OnSoundButtonClick);
     }
 
@@ -31,7 +31,8 @@ public class MainPanel : MonoBehaviour
     /// </summary>
     private void OnStartButtonClick()
     {
-
+        EventCenter.Broadcast(EventDefine.ShowGamePanel);
+        gameObject.SetActive(false);
     }
 
     /// <summary>
