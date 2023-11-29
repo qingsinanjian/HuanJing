@@ -23,24 +23,28 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && isJumping == false)
+        if(GameManager.Instance.IsGameStarted == true)
         {
-            isJumping = true;
-            Vector3 mousePos = Input.mousePosition;
-            if(mousePos.x <= Screen.width / 2)//µã»÷ÁËÆÁÄ»×ó±ß
+            if (Input.GetMouseButtonDown(0) && isJumping == false)
             {
-                isMoveLeft = true;
+                isJumping = true;
+                Vector3 mousePos = Input.mousePosition;
+                if (mousePos.x <= Screen.width / 2)//µã»÷ÁËÆÁÄ»×ó±ß
+                {
+                    isMoveLeft = true;
+                }
+                else
+                {
+                    isMoveLeft = false;
+                }
+                Jump();
             }
-            else
-            {
-                isMoveLeft= false;
-            }
-            Jump();
-        }     
+        }        
     }
 
     private void Jump()
     {
+        EventCenter.Broadcast(EventDefine.DecidePath);
         if(isMoveLeft)
         {
             transform.localScale = new Vector3(-1, 1, 1);

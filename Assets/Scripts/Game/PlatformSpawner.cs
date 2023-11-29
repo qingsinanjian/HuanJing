@@ -19,6 +19,11 @@ public class PlatformSpawner : MonoBehaviour
     /// </summary>
     private bool isLeftSpawn = false;
 
+    private void Awake()
+    {
+        EventCenter.AddListener(EventDefine.DecidePath, DecidePath);
+    }
+
     private void Start()
     {
         platformSpawnPos = startSpawnPos;
@@ -31,6 +36,11 @@ public class PlatformSpawner : MonoBehaviour
         //生成人物
         GameObject player = Instantiate(vars.characterPre);
         player.transform.position = new Vector3(0, -1.8f, 0);
+    }
+
+    private void OnDestroy()
+    {
+        EventCenter.RemoveListener(EventDefine.DecidePath, DecidePath);
     }
 
     /// <summary>
