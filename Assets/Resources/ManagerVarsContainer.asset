@@ -17,3 +17,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5feddf0396f8fd842b6a2034a343e884, type: 3}
   - {fileID: 21300000, guid: 274864b118ac4f54589e32e7035cd77f, type: 3}
   - {fileID: 21300000, guid: 81cb795749aefac4ea7663bc3f7f71fb, type: 3}
+  characterPre: {fileID: 403608524897382605, guid: fdf2abc24a13efa46bdc339bbae2fa6b, type: 3}
+  normalPlatform: {fileID: 2456333763408464379, guid: 20751041e2c798a4abb8c233141979cc, type: 3}
+  nextXPos: 0.554
+  nextYPos: 0.645
