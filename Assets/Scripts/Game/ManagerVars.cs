@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ManagerVars : MonoBehaviour
+//[CreateAssetMenu(menuName = "CreateManagerVarsContainer")]
+public class ManagerVars : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
+    public static ManagerVars GetManagerVars()
     {
-        
+        return Resources.Load<ManagerVars>("ManagerVarsContainer");
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public List<Sprite> bgThemeSpriteList = new List<Sprite>();
 }
