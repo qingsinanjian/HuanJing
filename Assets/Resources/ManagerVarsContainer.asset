@@ -36,5 +36,7 @@ MonoBehaviour:
   - {fileID: 6813776500557857854, guid: 55468d515c265dc448ef6e6998f822d1, type: 3}
   - {fileID: 2597266090501139109, guid: 49e319500068b714cad9d935d8c15ac2, type: 3}
   - {fileID: 2130125762759694222, guid: 50fda90d495e6a6459b03f64ea3910d9, type: 3}
+  spikePlatformLeft: {fileID: 4350055272323352076, guid: e5b589565c39b97448d4120ae1934081, type: 3}
+  spikePlatformRight: {fileID: 214822837481838090, guid: cb8348aea7643a54ebbf3142a9c9b998, type: 3}
   nextXPos: 0.554
   nextYPos: 0.645
