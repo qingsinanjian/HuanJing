@@ -10,6 +10,7 @@ public class ManagerVars : ScriptableObject
         return Resources.Load<ManagerVars>("ManagerVarsContainer");
     }
     public List<Sprite> bgThemeSpriteList = new List<Sprite>();
+    public List<Sprite> platformThemeSpriteList = new List<Sprite>();
 
     public GameObject characterPre;
     public GameObject normalPlatform;

@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlatformGroupType
+{
+    Grass,
+    Winter,
+}
+
 public class PlatformSpawner : MonoBehaviour
 {
     public Vector3 startSpawnPos;
@@ -18,6 +24,14 @@ public class PlatformSpawner : MonoBehaviour
     /// 是否朝左方生成
     /// </summary>
     private bool isLeftSpawn = false;
+    /// <summary>
+    /// 选中的平台主题
+    /// </summary>
+    private Sprite selectPlatformSprite;
+    /// <summary>
+    /// 组合平台的类型
+    /// </summary>
+    private PlatformGroupType groupType;
 
     private void Awake()
     {
@@ -26,8 +40,9 @@ public class PlatformSpawner : MonoBehaviour
 
     private void Start()
     {
-        platformSpawnPos = startSpawnPos;
         vars = ManagerVars.GetManagerVars();
+        platformSpawnPos = startSpawnPos;
+        RandomPlatformTheme();
         for (int i = 0; i < 5; i++)
         {
             spawnPlatformCount = 5;
@@ -42,6 +57,21 @@ public class PlatformSpawner : MonoBehaviour
     {
         EventCenter.RemoveListener(EventDefine.DecidePath, DecidePath);
     }
+
+    private void RandomPlatformTheme()
+    {
+        int ran = Random.Range(0, vars.platformThemeSpriteList.Count);
+        selectPlatformSprite = vars.platformThemeSpriteList[ran];
+        if(ran == 2)
+        {
+            groupType = PlatformGroupType.Winter;
+        }
+        else
+        {
+            groupType = PlatformGroupType.Grass;
+        }
+    }
+
 
     /// <summary>
     /// 确定路径
@@ -84,5 +114,6 @@ public class PlatformSpawner : MonoBehaviour
     {
         GameObject go = Instantiate(vars.normalPlatform, transform);
         go.transform.position = platformSpawnPos;
+        go.GetComponent<PlatformScript>().Init(selectPlatformSprite);
     }
 }
