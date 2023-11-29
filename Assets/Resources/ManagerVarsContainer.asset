@@ -24,5 +24,17 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 20da7e56cbb26b3498b25fb61fa9a7ff, type: 3}
   characterPre: {fileID: 403608524897382605, guid: fdf2abc24a13efa46bdc339bbae2fa6b, type: 3}
   normalPlatform: {fileID: 2456333763408464379, guid: 20751041e2c798a4abb8c233141979cc, type: 3}
+  commonPlatformGroup:
+  - {fileID: 2048136273993834372, guid: 7838311d6841b104097e2594cb31f253, type: 3}
+  - {fileID: 4377779805006499931, guid: 67c7600b2160ed64c8fa1f35cc1986ed, type: 3}
+  - {fileID: 1595726527687269120, guid: 7abb3d379e552044d9585a71852bc3fe, type: 3}
+  - {fileID: 2126970639692335881, guid: e00ab37c4a3ff4a40b5a4245651652a3, type: 3}
+  grassPlatformGroup:
+  - {fileID: 4111652385204762212, guid: 6f99a57c8cedef640ba2882a0ac329b4, type: 3}
+  - {fileID: 1968033529742900156, guid: f2aa95c41f8f35d47bc45cd7a3685fbf, type: 3}
+  winterPlatformGroup:
+  - {fileID: 6813776500557857854, guid: 55468d515c265dc448ef6e6998f822d1, type: 3}
+  - {fileID: 2597266090501139109, guid: 49e319500068b714cad9d935d8c15ac2, type: 3}
+  - {fileID: 2130125762759694222, guid: 50fda90d495e6a6459b03f64ea3910d9, type: 3}
   nextXPos: 0.554
   nextYPos: 0.645

@@ -50,7 +50,7 @@ public class PlatformSpawner : MonoBehaviour
         }
         //生成人物
         GameObject player = Instantiate(vars.characterPre);
-        player.transform.position = new Vector3(0, -1.8f, 0);
+        player.transform.position = new Vector3(vars.nextXPos, vars.nextYPos, 0);
     }
 
     private void OnDestroy()
@@ -62,7 +62,7 @@ public class PlatformSpawner : MonoBehaviour
     {
         int ran = Random.Range(0, vars.platformThemeSpriteList.Count);
         selectPlatformSprite = vars.platformThemeSpriteList[ran];
-        if(ran == 2)
+        if (ran == 2)
         {
             groupType = PlatformGroupType.Winter;
         }
@@ -78,7 +78,7 @@ public class PlatformSpawner : MonoBehaviour
     /// </summary>
     private void DecidePath()
     {
-        if(spawnPlatformCount > 0)
+        if (spawnPlatformCount > 0)
         {
             spawnPlatformCount--;
             SpawnPlatform();
@@ -86,7 +86,7 @@ public class PlatformSpawner : MonoBehaviour
         else
         {
             isLeftSpawn = !isLeftSpawn;
-            spawnPlatformCount = Random.Range(1,4);
+            spawnPlatformCount = Random.Range(1, 4);
             SpawnPlatform();
         }
     }
@@ -96,7 +96,6 @@ public class PlatformSpawner : MonoBehaviour
     /// </summary>
     private void SpawnPlatform()
     {
-        SpawnNormalPlatform();
         if (isLeftSpawn)//向左生成
         {
             platformSpawnPos = new Vector3(platformSpawnPos.x - vars.nextXPos, platformSpawnPos.y + vars.nextYPos, 0);
@@ -105,6 +104,40 @@ public class PlatformSpawner : MonoBehaviour
         {
             platformSpawnPos = new Vector3(platformSpawnPos.x + vars.nextXPos, platformSpawnPos.y + vars.nextYPos, 0);
         }
+
+        //生成单个平台
+        if (spawnPlatformCount >= 1)
+        {
+            SpawnNormalPlatform();
+        }
+        //生成组合平台
+        else if (spawnPlatformCount == 0)
+        {
+            int ran = Random.Range(0, 3);
+            //生成通用组合平台
+            if (ran == 0)
+            {
+                SpawCommonPlatformGroup();
+            }
+            //生成主题组合平台
+            else if (ran == 1)
+            {
+                switch (groupType)
+                {
+                    case PlatformGroupType.Grass:
+                        SpawnGrassPlatformGroup();
+                        break;
+                    case PlatformGroupType.Winter:
+                        SpawnWinterPlatformGroup();
+                        break;
+                }
+            }
+            //生成钉子组合平台
+            else
+            {
+                 
+            }
+        }     
     }
 
     /// <summary>
@@ -113,6 +146,39 @@ public class PlatformSpawner : MonoBehaviour
     private void SpawnNormalPlatform()
     {
         GameObject go = Instantiate(vars.normalPlatform, transform);
+        go.transform.position = platformSpawnPos;
+        go.GetComponent<PlatformScript>().Init(selectPlatformSprite);
+    }
+
+    /// <summary>
+    /// 生成通用组合平台
+    /// </summary>
+    private void SpawCommonPlatformGroup()
+    {
+        int ran = Random.Range(0, vars.commonPlatformGroup.Count);
+        GameObject go = Instantiate(vars.commonPlatformGroup[ran], transform);
+        go.transform.position = platformSpawnPos;
+        go.GetComponent<PlatformScript>().Init(selectPlatformSprite);
+    }
+
+    /// <summary>
+    /// 生成草地组合平台
+    /// </summary>
+    private void SpawnGrassPlatformGroup()
+    {
+        int ran = Random.Range(0, vars.grassPlatformGroup.Count);
+        GameObject go = Instantiate(vars.grassPlatformGroup[ran], transform);
+        go.transform.position = platformSpawnPos;
+        go.GetComponent<PlatformScript>().Init(selectPlatformSprite);
+    }
+
+    /// <summary>
+    /// 生成冬季组合平台
+    /// </summary>
+    private void SpawnWinterPlatformGroup()
+    {
+        int ran = Random.Range(0, vars.winterPlatformGroup.Count);
+        GameObject go = Instantiate(vars.winterPlatformGroup[ran], transform);
         go.transform.position = platformSpawnPos;
         go.GetComponent<PlatformScript>().Init(selectPlatformSprite);
     }
