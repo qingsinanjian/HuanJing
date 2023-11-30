@@ -32,17 +32,30 @@ public class PlatformSpawner : MonoBehaviour
     /// 组合平台的类型
     /// </summary>
     private PlatformGroupType groupType;
+    /// <summary>
+    /// 钉子组合平台是否生成在左边
+    /// </summary>
+    private bool spikeSpawnLeft = false;
+    /// <summary>
+    /// 钉子平台方向的位置
+    /// </summary>
+    private Vector3 spikeDirPlatformPos;
+    /// <summary>
+    /// 生成钉子组合平台之后需要在钉子方向生成的平台的数量
+    /// </summary>
+    private int afterSpawnSpikePlatformCount;
+    private bool isSpawnSpike;
 
     private void Awake()
     {
         EventCenter.AddListener(EventDefine.DecidePath, DecidePath);
+        vars = ManagerVars.GetManagerVars();
     }
 
     private void Start()
     {
-        vars = ManagerVars.GetManagerVars();
-        platformSpawnPos = startSpawnPos;
         RandomPlatformTheme();
+        platformSpawnPos = startSpawnPos;
         for (int i = 0; i < 5; i++)
         {
             spawnPlatformCount = 5;
@@ -78,6 +91,12 @@ public class PlatformSpawner : MonoBehaviour
     /// </summary>
     private void DecidePath()
     {
+        if (isSpawnSpike)
+        {
+            AfterSpawnSpike();
+            return;
+        }
+
         if (spawnPlatformCount > 0)
         {
             spawnPlatformCount--;
@@ -85,6 +104,7 @@ public class PlatformSpawner : MonoBehaviour
         }
         else
         {
+            //反转生成方向
             isLeftSpawn = !isLeftSpawn;
             spawnPlatformCount = Random.Range(1, 4);
             SpawnPlatform();
@@ -96,15 +116,7 @@ public class PlatformSpawner : MonoBehaviour
     /// </summary>
     private void SpawnPlatform()
     {
-        int obstacleDir = Random.Range(0, 2);
-        if (isLeftSpawn)//向左生成
-        {
-            platformSpawnPos = new Vector3(platformSpawnPos.x - vars.nextXPos, platformSpawnPos.y + vars.nextYPos, 0);
-        }
-        else//向右生成
-        {
-            platformSpawnPos = new Vector3(platformSpawnPos.x + vars.nextXPos, platformSpawnPos.y + vars.nextYPos, 0);
-        }
+        int obstacleDir = Random.Range(0, 2);   
 
         //生成单个平台
         if (spawnPlatformCount >= 1)
@@ -146,8 +158,26 @@ public class PlatformSpawner : MonoBehaviour
                     value = 1;//生成左边方向的钉子
                 }
                 SpawnSpikePlatform(value);
+                isSpawnSpike = true;
+                afterSpawnSpikePlatformCount = Random.Range(3, 5);
+                if (spikeSpawnLeft)//钉子在左边
+                {
+                    spikeDirPlatformPos = new Vector3(platformSpawnPos.x - 1.65f, platformSpawnPos.y + vars.nextYPos, 0);
+                }
+                else
+                {
+                    spikeDirPlatformPos = new Vector3(platformSpawnPos.x + 1.65f, platformSpawnPos.y + vars.nextYPos, 0);
+                }
             }
-        }     
+        }
+        if (isLeftSpawn)//向左生成
+        {
+            platformSpawnPos = new Vector3(platformSpawnPos.x - vars.nextXPos, platformSpawnPos.y + vars.nextYPos, 0);
+        }
+        else//向右生成
+        {
+            platformSpawnPos = new Vector3(platformSpawnPos.x + vars.nextXPos, platformSpawnPos.y + vars.nextYPos, 0);
+        }
     }
 
     /// <summary>
@@ -155,9 +185,10 @@ public class PlatformSpawner : MonoBehaviour
     /// </summary>
     private void SpawnNormalPlatform(int obstacleDir)
     {
-        GameObject go = Instantiate(vars.normalPlatform, transform);
+        GameObject go = ObjectPool.Instance.GetNormalPlatform();
         go.transform.position = platformSpawnPos;
         go.GetComponent<PlatformScript>().Init(selectPlatformSprite, obstacleDir);
+        go.SetActive(true);
     }
 
     /// <summary>
@@ -166,9 +197,10 @@ public class PlatformSpawner : MonoBehaviour
     private void SpawCommonPlatformGroup(int obstacleDir)
     {
         int ran = Random.Range(0, vars.commonPlatformGroup.Count);
-        GameObject go = Instantiate(vars.commonPlatformGroup[ran], transform);
+        GameObject go = ObjectPool.Instance.GetCommonPlatform();
         go.transform.position = platformSpawnPos;
         go.GetComponent<PlatformScript>().Init(selectPlatformSprite, obstacleDir);
+        go.SetActive(true);
     }
 
     /// <summary>
@@ -177,9 +209,10 @@ public class PlatformSpawner : MonoBehaviour
     private void SpawnGrassPlatformGroup(int obstacleDir)
     {
         int ran = Random.Range(0, vars.grassPlatformGroup.Count);
-        GameObject go = Instantiate(vars.grassPlatformGroup[ran], transform);
+        GameObject go = ObjectPool.Instance.GetGrassPlatform();
         go.transform.position = platformSpawnPos;
         go.GetComponent<PlatformScript>().Init(selectPlatformSprite, obstacleDir);
+        go.SetActive(true);
     }
 
     /// <summary>
@@ -188,9 +221,10 @@ public class PlatformSpawner : MonoBehaviour
     private void SpawnWinterPlatformGroup(int obstacleDir)
     {
         int ran = Random.Range(0, vars.winterPlatformGroup.Count);
-        GameObject go = Instantiate(vars.winterPlatformGroup[ran], transform);
+        GameObject go = ObjectPool.Instance.GetWinterPlatform();
         go.transform.position = platformSpawnPos;
         go.GetComponent<PlatformScript>().Init(selectPlatformSprite, obstacleDir);
+        go.SetActive(true);
     }
 
     /// <summary>
@@ -202,14 +236,65 @@ public class PlatformSpawner : MonoBehaviour
         GameObject go;
         if (dir == 0)
         {
-            go = Instantiate(vars.spikePlatformRight, transform);
+            spikeSpawnLeft = false;
+            go = ObjectPool.Instance.GetSpikePlatformRight();
             
         }
         else
         {
-            go = Instantiate(vars.spikePlatformLeft, transform);
+            spikeSpawnLeft = true;
+            go = ObjectPool.Instance.GetSpikePlatformLeft();
         }
         go.transform.position = platformSpawnPos;
         go.GetComponent<PlatformScript>().Init(selectPlatformSprite, dir);
+        go.SetActive(true);
+    }
+
+    /// <summary>
+    /// 生成钉子平台之后需要生成的平台
+    /// 包括钉子方向也包括原来的方向
+    /// </summary>
+    private void AfterSpawnSpike()
+    {
+        if(afterSpawnSpikePlatformCount > 0)
+        {
+            afterSpawnSpikePlatformCount--;
+            for (int i = 0; i < 2; i++)
+            {
+                GameObject temp = ObjectPool.Instance.GetNormalPlatform();
+                temp.SetActive(true);
+                if(i == 0)//生成原来方向的平台
+                {
+                    temp.transform.position = platformSpawnPos;
+                    //如果钉子在左边，原先路径就是右边
+                    if (spikeSpawnLeft)
+                    {
+                        platformSpawnPos = new Vector3(platformSpawnPos.x + vars.nextXPos, platformSpawnPos.y + vars.nextYPos, 0);
+                    }
+                    else
+                    {
+                        platformSpawnPos = new Vector3(platformSpawnPos.x - vars.nextXPos, platformSpawnPos.y + vars.nextYPos, 0);
+                    }
+                }
+                else//生成钉子方向的平台
+                {
+                    temp.transform.position = spikeDirPlatformPos;
+                    if (spikeSpawnLeft)
+                    {
+                        spikeDirPlatformPos = new Vector3(spikeDirPlatformPos.x - vars.nextXPos, spikeDirPlatformPos.y + vars.nextYPos, 0);
+                    }
+                    else
+                    {
+                        spikeDirPlatformPos = new Vector3(spikeDirPlatformPos.x + vars.nextXPos, spikeDirPlatformPos.y + vars.nextYPos, 0);
+                    }
+                }
+                temp.GetComponent<PlatformScript>().Init(selectPlatformSprite, 1);
+            }
+        }
+        else
+        {
+            isSpawnSpike = false;
+            DecidePath();
+        }
     }
 }
