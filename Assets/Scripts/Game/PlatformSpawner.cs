@@ -96,6 +96,7 @@ public class PlatformSpawner : MonoBehaviour
     /// </summary>
     private void SpawnPlatform()
     {
+        int obstacleDir = Random.Range(0, 2);
         if (isLeftSpawn)//向左生成
         {
             platformSpawnPos = new Vector3(platformSpawnPos.x - vars.nextXPos, platformSpawnPos.y + vars.nextYPos, 0);
@@ -108,7 +109,7 @@ public class PlatformSpawner : MonoBehaviour
         //生成单个平台
         if (spawnPlatformCount >= 1)
         {
-            SpawnNormalPlatform();
+            SpawnNormalPlatform(obstacleDir);
         }
         //生成组合平台
         else if (spawnPlatformCount == 0)
@@ -117,7 +118,7 @@ public class PlatformSpawner : MonoBehaviour
             //生成通用组合平台
             if (ran == 0)
             {
-                SpawCommonPlatformGroup();
+                SpawCommonPlatformGroup(obstacleDir);
             }
             //生成主题组合平台
             else if (ran == 1)
@@ -125,10 +126,10 @@ public class PlatformSpawner : MonoBehaviour
                 switch (groupType)
                 {
                     case PlatformGroupType.Grass:
-                        SpawnGrassPlatformGroup();
+                        SpawnGrassPlatformGroup(obstacleDir);
                         break;
                     case PlatformGroupType.Winter:
-                        SpawnWinterPlatformGroup();
+                        SpawnWinterPlatformGroup(obstacleDir);
                         break;
                 }
             }
@@ -152,44 +153,44 @@ public class PlatformSpawner : MonoBehaviour
     /// <summary>
     /// 生成普通平台（单个）
     /// </summary>
-    private void SpawnNormalPlatform()
+    private void SpawnNormalPlatform(int obstacleDir)
     {
         GameObject go = Instantiate(vars.normalPlatform, transform);
         go.transform.position = platformSpawnPos;
-        go.GetComponent<PlatformScript>().Init(selectPlatformSprite);
+        go.GetComponent<PlatformScript>().Init(selectPlatformSprite, obstacleDir);
     }
 
     /// <summary>
     /// 生成通用组合平台
     /// </summary>
-    private void SpawCommonPlatformGroup()
+    private void SpawCommonPlatformGroup(int obstacleDir)
     {
         int ran = Random.Range(0, vars.commonPlatformGroup.Count);
         GameObject go = Instantiate(vars.commonPlatformGroup[ran], transform);
         go.transform.position = platformSpawnPos;
-        go.GetComponent<PlatformScript>().Init(selectPlatformSprite);
+        go.GetComponent<PlatformScript>().Init(selectPlatformSprite, obstacleDir);
     }
 
     /// <summary>
     /// 生成草地组合平台
     /// </summary>
-    private void SpawnGrassPlatformGroup()
+    private void SpawnGrassPlatformGroup(int obstacleDir)
     {
         int ran = Random.Range(0, vars.grassPlatformGroup.Count);
         GameObject go = Instantiate(vars.grassPlatformGroup[ran], transform);
         go.transform.position = platformSpawnPos;
-        go.GetComponent<PlatformScript>().Init(selectPlatformSprite);
+        go.GetComponent<PlatformScript>().Init(selectPlatformSprite, obstacleDir);
     }
 
     /// <summary>
     /// 生成冬季组合平台
     /// </summary>
-    private void SpawnWinterPlatformGroup()
+    private void SpawnWinterPlatformGroup(int obstacleDir)
     {
         int ran = Random.Range(0, vars.winterPlatformGroup.Count);
         GameObject go = Instantiate(vars.winterPlatformGroup[ran], transform);
         go.transform.position = platformSpawnPos;
-        go.GetComponent<PlatformScript>().Init(selectPlatformSprite);
+        go.GetComponent<PlatformScript>().Init(selectPlatformSprite, obstacleDir);
     }
 
     /// <summary>
@@ -209,6 +210,6 @@ public class PlatformSpawner : MonoBehaviour
             go = Instantiate(vars.spikePlatformLeft, transform);
         }
         go.transform.position = platformSpawnPos;
-        go.GetComponent<PlatformScript>().Init(selectPlatformSprite);
+        go.GetComponent<PlatformScript>().Init(selectPlatformSprite, dir);
     }
 }
