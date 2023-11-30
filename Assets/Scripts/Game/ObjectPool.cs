@@ -13,6 +13,7 @@ public class ObjectPool : MonoBehaviour
     private List<GameObject> winterPlatformGroupList = new List<GameObject>();
     private List<GameObject> spikePlatformLeftList = new List<GameObject>();
     private List<GameObject> spikePlatformRightList = new List<GameObject>();
+    private List<GameObject> deathEffectList = new List<GameObject>();
     private ManagerVars vars;
 
     private void Awake()
@@ -61,6 +62,11 @@ public class ObjectPool : MonoBehaviour
         for (int i = 0; i < initSpawnCount; i++)
         {
             InstantiateObject(vars.spikePlatformRight, ref spikePlatformRightList);
+        }
+
+        for (int i = 0; i < initSpawnCount; i++)
+        {
+            InstantiateObject(vars.deathEffect, ref deathEffectList);
         }
     }
 
@@ -169,5 +175,21 @@ public class ObjectPool : MonoBehaviour
             }
         }
         return InstantiateObject(vars.spikePlatformRight, ref spikePlatformRightList);
+    }
+
+    /// <summary>
+    /// 获得死亡特效
+    /// </summary>
+    /// <returns></returns>
+    public GameObject GetDeathEffect()
+    {
+        for (int i = 0; i < deathEffectList.Count; i++)
+        {
+            if (!deathEffectList[i].activeInHierarchy)
+            {
+                return deathEffectList[i];
+            }
+        }
+        return InstantiateObject(vars.deathEffect, ref deathEffectList);
     }
 }

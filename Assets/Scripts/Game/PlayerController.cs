@@ -5,8 +5,8 @@ using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
-    public Transform rayDown;
-    public LayerMask platformLayer;
+    public Transform rayDown, rayLeft, rayRight;
+    public LayerMask platformLayer, obstacleLayer;
     /// <summary>
     /// 是否向左移动
     /// </summary>
@@ -29,7 +29,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(GameManager.Instance.IsGameStarted == true)
+        Debug.DrawRay(rayDown.position, Vector2.down * 1, Color.red);
+        Debug.DrawRay(rayLeft.position, Vector2.down * 0.15f, Color.red);
+        Debug.DrawRay(rayRight.position, Vector2.down * 0.15f, Color.red);
+        if (GameManager.Instance.IsGameStarted == true)
         {
             if (Input.GetMouseButtonDown(0) && isJumping == false)
             {
@@ -53,15 +56,54 @@ public class PlayerController : MonoBehaviour
                 GameManager.Instance.IsGameOver = true;
                 //调用结束面板
             }
+
+            if(isJumping && IsRayObstacle() && !GameManager.Instance.IsGameOver)
+            {
+                GameObject go = ObjectPool.Instance.GetDeathEffect();
+                go.SetActive(true);
+                go.transform.position = transform.position;
+                GameManager.Instance.IsGameOver = true;
+                Destroy(gameObject);
+            }
         }        
     }
 
+    /// <summary>
+    /// 是否检测到平台
+    /// </summary>
+    /// <returns></returns>
     private bool IsRayPlatform()
     {
         RaycastHit2D hit = Physics2D.Raycast(rayDown.position, Vector2.down, 1f, platformLayer);
         if (hit.collider != null && hit.collider.CompareTag("Platform"))
         {
             return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// 是否检测到障碍物
+    /// </summary>
+    /// <returns></returns>
+    private bool IsRayObstacle()
+    {
+        RaycastHit2D leftHit = Physics2D.Raycast(rayLeft.position, Vector2.left, 0.15f, obstacleLayer);
+        RaycastHit2D rightHit = Physics2D.Raycast(rayRight.position, Vector2.right, 0.15f, obstacleLayer);
+        if(leftHit.collider != null)
+        {
+            if (leftHit.collider.CompareTag("Obstacle"))
+            {
+                return true;
+            }
+        }
+
+        if (rightHit.collider != null)
+        {
+            if (rightHit.collider.CompareTag("Obstacle"))
+            {
+                return true;
+            }
         }
         return false;
     }

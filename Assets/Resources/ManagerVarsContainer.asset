@@ -38,5 +38,6 @@ MonoBehaviour:
   - {fileID: 2130125762759694222, guid: 50fda90d495e6a6459b03f64ea3910d9, type: 3}
   spikePlatformLeft: {fileID: 4350055272323352076, guid: e5b589565c39b97448d4120ae1934081, type: 3}
   spikePlatformRight: {fileID: 214822837481838090, guid: cb8348aea7643a54ebbf3142a9c9b998, type: 3}
+  deathEffect: {fileID: 9151005716240232769, guid: e882e1e385cff2c43a75c199a1b78483, type: 3}
   nextXPos: 0.554
   nextYPos: 0.645

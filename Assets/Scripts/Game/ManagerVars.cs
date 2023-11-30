@@ -19,6 +19,8 @@ public class ManagerVars : ScriptableObject
     public List<GameObject> winterPlatformGroup = new List<GameObject>();
     public GameObject spikePlatformLeft;
     public GameObject spikePlatformRight;
+
+    public GameObject deathEffect;
     public float nextXPos = 0.554f;
     public float nextYPos = 0.645f;
 }
