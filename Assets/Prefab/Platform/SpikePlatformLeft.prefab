@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 2182036572362266576}
   - component: {fileID: 7201998750632106602}
   - component: {fileID: 5141756794597307129}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpikePlatformLeft
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -400,3 +400,4 @@ MonoBehaviour:
   spriteRenderers:
   - {fileID: 2182036573490856001}
   - {fileID: 2182036573096266959}
+  obstacle: {fileID: 0}

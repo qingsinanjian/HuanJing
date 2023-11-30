@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 2222061334046753159}
   - component: {fileID: 7164343023660649533}
   - component: {fileID: -603006548655404151}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlatformCommonGroup2
   m_TagString: Platform
   m_Icon: {fileID: 0}

@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 440773548316474233}
   - component: {fileID: 8910218153915659971}
   - component: {fileID: -6030070966512401882}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlatformWinterGroup2
   m_TagString: Platform
   m_Icon: {fileID: 0}

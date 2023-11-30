@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2372713867182163926}
   - component: {fileID: 6725870646697577068}
   - component: {fileID: 8790609261768303359}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpikePlatformRight
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -98,6 +98,7 @@ MonoBehaviour:
   spriteRenderers:
   - {fileID: 2372713865861156935}
   - {fileID: 2372713866322336969}
+  obstacle: {fileID: 0}
 --- !u!1 &2204306603250915878
 GameObject:
   m_ObjectHideFlags: 0
