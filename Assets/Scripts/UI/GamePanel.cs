@@ -13,12 +13,14 @@ public class GamePanel : MonoBehaviour
     private void Awake()
     {
         EventCenter.AddListener(EventDefine.ShowGamePanel, Show);
+        EventCenter.AddListener<int>(EventDefine.UpdateScoreText, UpdateScoreText);
         Init();
     }
 
     private void OnDestroy()
     {
         EventCenter.RemoveListener(EventDefine.ShowGamePanel, Show);
+        EventCenter.RemoveListener<int>(EventDefine.UpdateScoreText, UpdateScoreText);
     }
 
     private void Init()
@@ -39,12 +41,23 @@ public class GamePanel : MonoBehaviour
     }
 
     /// <summary>
+    /// 更新成绩
+    /// </summary>
+    /// <param name="score"></param>
+    private void UpdateScoreText(int score)
+    {
+        txt_Score.text = score.ToString();
+    }
+
+    /// <summary>
     /// 暂停按钮点击
     /// </summary>
     private void OnPauseButtonClick()
     {
         btn_Pause.gameObject.SetActive(false);
         btn_Play.gameObject.SetActive(true);
+        Time.timeScale = 0;
+        GameManager.Instance.IsGamePaused = true;
     }
 
     /// <summary>
@@ -54,5 +67,7 @@ public class GamePanel : MonoBehaviour
     {
         btn_Play.gameObject.SetActive(false);
         btn_Pause.gameObject.SetActive(true);
+        Time.timeScale = 1;
+        GameManager.Instance.IsGamePaused = false;
     }
 }
