@@ -3,5 +3,6 @@
     ShowGamePanel,
     DecidePath,
     AddScore,
-    UpdateScoreText
+    UpdateScoreText,
+    PlayerMove,
 }

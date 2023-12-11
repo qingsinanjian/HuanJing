@@ -12,6 +12,13 @@ public class PlatformSpawner : MonoBehaviour
 {
     public Vector3 startSpawnPos;
     /// <summary>
+    /// 里程碑数
+    /// </summary>
+    public int milestoneCount = 10;
+    public float fallTime = 0;
+    public float minFallTime;
+    public float multiple;
+    /// <summary>
     /// 生成平台数量
     /// </summary>
     private int spawnPlatformCount;
@@ -71,6 +78,33 @@ public class PlatformSpawner : MonoBehaviour
         EventCenter.RemoveListener(EventDefine.DecidePath, DecidePath);
     }
 
+    private void Update()
+    {
+        if ((GameManager.Instance.IsGameStarted && GameManager.Instance.IsGameOver == false))
+        {
+            UpdateFallTime();
+        }
+    }
+
+    /// <summary>
+    /// 更新平台掉落时间
+    /// </summary>
+    private void UpdateFallTime()
+    {
+        if(GameManager.Instance.GetGameScore() > milestoneCount)
+        {
+            milestoneCount *= 2;
+            fallTime *= multiple;
+            if(fallTime < minFallTime)
+            {
+                fallTime = minFallTime;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 随机平台主题
+    /// </summary>
     private void RandomPlatformTheme()
     {
         int ran = Random.Range(0, vars.platformThemeSpriteList.Count);
@@ -187,7 +221,7 @@ public class PlatformSpawner : MonoBehaviour
     {
         GameObject go = ObjectPool.Instance.GetNormalPlatform();
         go.transform.position = platformSpawnPos;
-        go.GetComponent<PlatformScript>().Init(selectPlatformSprite, obstacleDir);
+        go.GetComponent<PlatformScript>().Init(selectPlatformSprite, fallTime, obstacleDir);
         go.SetActive(true);
     }
 
@@ -199,7 +233,7 @@ public class PlatformSpawner : MonoBehaviour
         int ran = Random.Range(0, vars.commonPlatformGroup.Count);
         GameObject go = ObjectPool.Instance.GetCommonPlatform();
         go.transform.position = platformSpawnPos;
-        go.GetComponent<PlatformScript>().Init(selectPlatformSprite, obstacleDir);
+        go.GetComponent<PlatformScript>().Init(selectPlatformSprite, fallTime, obstacleDir);
         go.SetActive(true);
     }
 
@@ -211,7 +245,7 @@ public class PlatformSpawner : MonoBehaviour
         int ran = Random.Range(0, vars.grassPlatformGroup.Count);
         GameObject go = ObjectPool.Instance.GetGrassPlatform();
         go.transform.position = platformSpawnPos;
-        go.GetComponent<PlatformScript>().Init(selectPlatformSprite, obstacleDir);
+        go.GetComponent<PlatformScript>().Init(selectPlatformSprite, fallTime, obstacleDir);
         go.SetActive(true);
     }
 
@@ -223,7 +257,7 @@ public class PlatformSpawner : MonoBehaviour
         int ran = Random.Range(0, vars.winterPlatformGroup.Count);
         GameObject go = ObjectPool.Instance.GetWinterPlatform();
         go.transform.position = platformSpawnPos;
-        go.GetComponent<PlatformScript>().Init(selectPlatformSprite, obstacleDir);
+        go.GetComponent<PlatformScript>().Init(selectPlatformSprite, fallTime, obstacleDir);
         go.SetActive(true);
     }
 
@@ -246,7 +280,7 @@ public class PlatformSpawner : MonoBehaviour
             go = ObjectPool.Instance.GetSpikePlatformLeft();
         }
         go.transform.position = platformSpawnPos;
-        go.GetComponent<PlatformScript>().Init(selectPlatformSprite, dir);
+        go.GetComponent<PlatformScript>().Init(selectPlatformSprite, fallTime, dir);
         go.SetActive(true);
     }
 
@@ -288,7 +322,7 @@ public class PlatformSpawner : MonoBehaviour
                         spikeDirPlatformPos = new Vector3(spikeDirPlatformPos.x + vars.nextXPos, spikeDirPlatformPos.y + vars.nextYPos, 0);
                     }
                 }
-                temp.GetComponent<PlatformScript>().Init(selectPlatformSprite, 1);
+                temp.GetComponent<PlatformScript>().Init(selectPlatformSprite, fallTime, 1);
             }
         }
         else

@@ -6,9 +6,20 @@ public class PlatformScript : MonoBehaviour
 {
     public SpriteRenderer[] spriteRenderers;
     public GameObject obstacle;
+    private bool startTimer;
+    private float fallTime;
+    private Rigidbody2D my_Body;
 
-    public void Init(Sprite sprite, int obstacleDir)
+    private void Awake()
     {
+        my_Body = GetComponent<Rigidbody2D>();
+    }
+
+    public void Init(Sprite sprite, float fallTime, int obstacleDir)
+    {
+        my_Body.bodyType = RigidbodyType2D.Static;
+        startTimer = true;
+        this.fallTime = fallTime;
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
             spriteRenderers[i].sprite = sprite;
@@ -22,5 +33,33 @@ public class PlatformScript : MonoBehaviour
                     obstacle.transform.localPosition.y, obstacle.transform.localPosition.z);
             }        
         }
+    }
+
+    private void Update()
+    {
+        if(GameManager.Instance.IsGameStarted == false || GameManager.Instance.PlayerIsMove == false)
+        {
+            return;
+        }
+        if(startTimer)
+        {
+            fallTime -= Time.deltaTime;
+            if(fallTime < 0)
+            {
+                //µôÂä
+                startTimer = false;
+                if(my_Body.bodyType != RigidbodyType2D.Dynamic)
+                {
+                    my_Body.bodyType = RigidbodyType2D.Dynamic;
+                    StartCoroutine(DelayHide());
+                }
+            }
+        }
+    }
+
+    private IEnumerator DelayHide()
+    {
+        yield return new WaitForSeconds(1);
+        gameObject.SetActive(false);
     }
 }

@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private ManagerVars vars;
     private Rigidbody2D my_Body;
     private SpriteRenderer spriteRenderer;
+    private bool isMove;
 
     private void Awake()
     {
@@ -42,6 +43,8 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && isJumping == false)
         {
+            EventCenter.Broadcast(EventDefine.PlayerMove);
+            isMove = true;
             EventCenter.Broadcast(EventDefine.DecidePath);
             isJumping = true;
             Vector3 mousePos = Input.mousePosition;

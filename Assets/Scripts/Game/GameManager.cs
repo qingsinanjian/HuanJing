@@ -9,12 +9,15 @@ public class GameManager : MonoBehaviour
     public bool IsGameOver { get; set;}
     public bool IsGamePaused { get; set;}
 
+    public bool PlayerIsMove {  get; set;}
+
     private int gameScore;
 
     private void Awake()
     {
         Instance = this;
         EventCenter.AddListener(EventDefine.AddScore, AddGameScore);
+        EventCenter.AddListener(EventDefine.PlayerMove, PlayerMove);
     }
 
     private void OnDestroy()
@@ -30,5 +33,22 @@ public class GameManager : MonoBehaviour
         }
         gameScore++;
         EventCenter.Broadcast(EventDefine.UpdateScoreText, gameScore);
+    }
+
+    /// <summary>
+    /// 玩家开始移动调用此方法
+    /// </summary>
+    private void PlayerMove()
+    {
+        PlayerIsMove = true;
+    }
+
+    /// <summary>
+    /// 获取游戏成绩
+    /// </summary>
+    /// <returns></returns>
+    public int GetGameScore()
+    {
+        return gameScore;
     }
 }
