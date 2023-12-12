@@ -55,6 +55,10 @@ public class PlatformScript : MonoBehaviour
                 }
             }
         }
+        if(transform.position.y - Camera.main.transform.position.y < -6)
+        {
+            StartCoroutine(DelayHide());
+        }
     }
 
     private IEnumerator DelayHide()

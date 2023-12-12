@@ -64,17 +64,27 @@ public class PlayerController : MonoBehaviour
             spriteRenderer.sortingLayerName = "Default";
             GetComponent<BoxCollider2D>().enabled = false;
             GameManager.Instance.IsGameOver = true;
+            print("游戏结束了IsRayPlatform");
             //调用结束面板
         }
 
         if (isJumping && IsRayObstacle() && !GameManager.Instance.IsGameOver)
         {
+            print("游戏结束了IsRayObstacle");
             GameObject go = ObjectPool.Instance.GetDeathEffect();
             go.SetActive(true);
             go.transform.position = transform.position;
             GameManager.Instance.IsGameOver = true;
             Destroy(gameObject);
         }
+
+        if (transform.position.y - Camera.main.transform.position.y < -6 && GameManager.Instance.IsGameOver == false)
+        {
+            GameManager.Instance.IsGameOver = true;
+            gameObject.SetActive(false);
+            print("游戏结束了");
+        }
+
     }
 
     private GameObject lastHitGo = null;
