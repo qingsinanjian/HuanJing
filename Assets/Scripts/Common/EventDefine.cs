@@ -7,4 +7,5 @@
     PlayerMove,
     AddDiamond,
     UpdateDiamondText,
+    ShowGameOverPanel,
 }

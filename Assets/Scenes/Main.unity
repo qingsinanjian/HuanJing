@@ -7344,7 +7344,7 @@ GameObject:
   - component: {fileID: 1751209730}
   - component: {fileID: 1751209732}
   m_Layer: 5
-  m_Name: txt_Restart
+  m_Name: btn_Restart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7810,6 +7810,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58542a3d6e80bbb49ae757893a041fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  txt_Score: {fileID: 88570200}
+  txt_BestScore: {fileID: 1959010520}
+  txt_AddDiamondCount: {fileID: 2090571303}
+  btn_Restart: {fileID: 1751209732}
+  btn_Rank: {fileID: 904356643}
+  btn_Home: {fileID: 104980768}
 --- !u!1 &2078404167
 GameObject:
   m_ObjectHideFlags: 0
