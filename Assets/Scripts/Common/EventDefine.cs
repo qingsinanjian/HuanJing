@@ -5,4 +5,6 @@
     AddScore,
     UpdateScoreText,
     PlayerMove,
+    AddDiamond,
+    UpdateDiamondText,
 }

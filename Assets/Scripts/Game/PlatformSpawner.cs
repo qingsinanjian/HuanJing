@@ -204,6 +204,15 @@ public class PlatformSpawner : MonoBehaviour
                 }
             }
         }
+
+        int ranSpawnDiamond = Random.Range(0, 10);
+        if(ranSpawnDiamond == 6 && GameManager.Instance.PlayerIsMove)
+        {
+            GameObject go = ObjectPool.Instance.GetDiamond();
+            go.transform.position = new Vector3(platformSpawnPos.x, platformSpawnPos.y + 0.5f, 0);
+            go.SetActive(true);
+        }
+
         if (isLeftSpawn)//Ïò×óÉú³É
         {
             platformSpawnPos = new Vector3(platformSpawnPos.x - vars.nextXPos, platformSpawnPos.y + vars.nextYPos, 0);

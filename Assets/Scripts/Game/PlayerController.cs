@@ -170,4 +170,13 @@ public class PlayerController : MonoBehaviour
             nextPlatformRight = new Vector3(curPlatformPos.x + vars.nextXPos, curPlatformPos.y + vars.nextYPos, 0);
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Pickup"))
+        {
+            collision.gameObject.SetActive(false);
+            EventCenter.Broadcast(EventDefine.AddDiamond);
+        }
+    }
 }

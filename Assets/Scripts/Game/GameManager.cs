@@ -12,17 +12,21 @@ public class GameManager : MonoBehaviour
     public bool PlayerIsMove {  get; set;}
 
     private int gameScore;
+    private int gameDiamond;
 
     private void Awake()
     {
         Instance = this;
         EventCenter.AddListener(EventDefine.AddScore, AddGameScore);
         EventCenter.AddListener(EventDefine.PlayerMove, PlayerMove);
+        EventCenter.AddListener(EventDefine.AddDiamond, AddDiamond);
     }
 
     private void OnDestroy()
     {
         EventCenter.RemoveListener(EventDefine.AddScore, AddGameScore);
+        EventCenter.RemoveListener(EventDefine.PlayerMove, PlayerMove);
+        EventCenter.RemoveListener(EventDefine.AddDiamond, AddDiamond);
     }
 
     private void AddGameScore()
@@ -50,5 +54,13 @@ public class GameManager : MonoBehaviour
     public int GetGameScore()
     {
         return gameScore;
+    }
+    /// <summary>
+    /// 更新游戏钻石数量
+    /// </summary>
+    private void AddDiamond()
+    {
+        gameDiamond++;
+        EventCenter.Broadcast(EventDefine.UpdateDiamondText, gameDiamond);
     }
 }
