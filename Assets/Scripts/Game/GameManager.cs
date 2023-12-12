@@ -20,6 +20,11 @@ public class GameManager : MonoBehaviour
         EventCenter.AddListener(EventDefine.AddScore, AddGameScore);
         EventCenter.AddListener(EventDefine.PlayerMove, PlayerMove);
         EventCenter.AddListener(EventDefine.AddDiamond, AddDiamond);
+
+        if (GameData.IsAgainGame)
+        {
+            IsGameStarted = true;
+        }
     }
 
     private void OnDestroy()

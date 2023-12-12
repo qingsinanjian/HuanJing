@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameOverPanel : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class GameOverPanel : MonoBehaviour
 
     private void Awake()
     {
-        btn_Restart.onClick.AddListener(OnRankButtonClick);
+        btn_Restart.onClick.AddListener(OnRestartButtonClick);
         btn_Rank.onClick.AddListener(OnRankButtonClick);
         btn_Home.onClick.AddListener(OnHomeButtonClick);
         EventCenter.AddListener(EventDefine.ShowGameOverPanel, Show);
@@ -34,7 +35,8 @@ public class GameOverPanel : MonoBehaviour
     /// </summary>
     private void OnRestartButtonClick()
     {
-
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameData.IsAgainGame = true;
     }
     /// <summary>
     /// ÅÅÐÐ°ñ°´Å¥µã»÷
@@ -49,6 +51,7 @@ public class GameOverPanel : MonoBehaviour
     /// </summary>
     private void OnHomeButtonClick()
     {
-
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameData.IsAgainGame = false;
     }
 }

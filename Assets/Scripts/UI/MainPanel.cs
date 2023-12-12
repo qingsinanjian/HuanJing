@@ -11,7 +11,16 @@ public class MainPanel : MonoBehaviour
     private Button btn_Sound;
     private void Awake()
     {
-        Init();
+        Init();        
+    }
+
+    private void Start()
+    {
+        if (GameData.IsAgainGame)
+        {
+            EventCenter.Broadcast(EventDefine.ShowGamePanel);
+            gameObject.SetActive(false);
+        }
     }
 
     private void Init()
