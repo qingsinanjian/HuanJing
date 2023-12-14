@@ -11,6 +11,7 @@ public class MainPanel : MonoBehaviour
     private Button btn_Sound;
     private void Awake()
     {
+        EventCenter.AddListener(EventDefine.ShowMainPanel, Show);
         Init();        
     }
 
@@ -21,6 +22,16 @@ public class MainPanel : MonoBehaviour
             EventCenter.Broadcast(EventDefine.ShowGamePanel);
             gameObject.SetActive(false);
         }
+    }
+
+    private void OnDestroy()
+    {
+        EventCenter.RemoveListener(EventDefine.ShowMainPanel, Show);
+    }
+
+    private void Show()
+    {
+        gameObject.SetActive(true);
     }
 
     private void Init()
@@ -50,7 +61,8 @@ public class MainPanel : MonoBehaviour
     /// </summary>
     private void OnShopButtonClick()
     {
-
+        EventCenter.Broadcast(EventDefine.ShowShopPanel);
+        gameObject.SetActive(false);
     }
 
     /// <summary>

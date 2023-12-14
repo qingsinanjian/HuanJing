@@ -8,4 +8,6 @@
     AddDiamond,
     UpdateDiamondText,
     ShowGameOverPanel,
+    ShowShopPanel,
+    ShowMainPanel,
 }

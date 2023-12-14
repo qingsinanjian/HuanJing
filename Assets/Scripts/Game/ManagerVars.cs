@@ -11,6 +11,8 @@ public class ManagerVars : ScriptableObject
     }
     public List<Sprite> bgThemeSpriteList = new List<Sprite>();
     public List<Sprite> platformThemeSpriteList = new List<Sprite>();
+    public List<Sprite> skinSpriteList = new List<Sprite>();
+    public List<string> skinNameList = new List<string>();
 
     public GameObject characterPre;
     public GameObject normalPlatform;
@@ -20,6 +22,7 @@ public class ManagerVars : ScriptableObject
     public GameObject spikePlatformLeft;
     public GameObject spikePlatformRight;
     public GameObject diamondPrefab;
+    public GameObject skinChooseItemPre;
 
     public GameObject deathEffect;
     public float nextXPos = 0.554f;

@@ -22,6 +22,16 @@ MonoBehaviour:
   - {fileID: 21300012, guid: 20da7e56cbb26b3498b25fb61fa9a7ff, type: 3}
   - {fileID: 21300004, guid: 20da7e56cbb26b3498b25fb61fa9a7ff, type: 3}
   - {fileID: 21300000, guid: 20da7e56cbb26b3498b25fb61fa9a7ff, type: 3}
+  skinSpriteList:
+  - {fileID: 21300000, guid: 0c7b4faa2ba890e45a9bcb89c3349cde, type: 3}
+  - {fileID: 21300004, guid: 0c7b4faa2ba890e45a9bcb89c3349cde, type: 3}
+  - {fileID: 21300008, guid: 0c7b4faa2ba890e45a9bcb89c3349cde, type: 3}
+  - {fileID: 21300012, guid: 0c7b4faa2ba890e45a9bcb89c3349cde, type: 3}
+  skinNameList:
+  - "\u592E\u683C\u9C81\u4EBA"
+  - "\u970D\u6BD4\u7279\u4EBA"
+  - "\u5FCD\u8005"
+  - "\u5C0F\u50F5\u5C38"
   characterPre: {fileID: 403608524897382605, guid: fdf2abc24a13efa46bdc339bbae2fa6b, type: 3}
   normalPlatform: {fileID: 2456333763408464379, guid: 20751041e2c798a4abb8c233141979cc, type: 3}
   commonPlatformGroup:
@@ -39,6 +49,7 @@ MonoBehaviour:
   spikePlatformLeft: {fileID: 4350055272323352076, guid: e5b589565c39b97448d4120ae1934081, type: 3}
   spikePlatformRight: {fileID: 214822837481838090, guid: cb8348aea7643a54ebbf3142a9c9b998, type: 3}
   diamondPrefab: {fileID: 56845349779644801, guid: 33181b69cd4ecb64ba53c7f246aa42ba, type: 3}
+  skinChooseItemPre: {fileID: 7249301952124491894, guid: ef65c25d17965cd4d881913ef0c70725, type: 3}
   deathEffect: {fileID: 9151005716240232769, guid: e882e1e385cff2c43a75c199a1b78483, type: 3}
   nextXPos: 0.554
   nextYPos: 0.645
