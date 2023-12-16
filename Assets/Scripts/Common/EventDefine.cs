@@ -13,4 +13,5 @@
     ChangeSkin,
     Hint,
     ShowResetPanel,
+    ShowRankPanel,
 }

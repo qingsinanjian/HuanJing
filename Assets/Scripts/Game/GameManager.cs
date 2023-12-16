@@ -98,6 +98,21 @@ public class GameManager : MonoBehaviour
         bestScoreArr[index] = score;
         Save();
     }
+
+    /// <summary>
+    /// 获得最高分数组
+    /// </summary>
+    /// <returns></returns>
+    public int[] GetScoreArr()
+    {
+        List<int> list = bestScoreArr.ToList();
+        //从大到小排序list
+        list.Sort((x, y) => (-x.CompareTo(y)));
+        bestScoreArr = list.ToArray();
+
+        return bestScoreArr;
+    }
+
     /// <summary>
     /// 获取做高分
     /// </summary>

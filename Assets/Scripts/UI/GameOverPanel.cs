@@ -56,7 +56,7 @@ public class GameOverPanel : MonoBehaviour
     /// </summary>
     private void OnRankButtonClick()
     {
-
+        EventCenter.Broadcast(EventDefine.ShowRankPanel);
     }
 
     /// <summary>
