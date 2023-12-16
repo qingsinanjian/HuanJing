@@ -44,6 +44,7 @@ public class ResetPanel : MonoBehaviour
     /// </summary>
     private void OnYesButtonClick()
     {
+        EventCenter.Broadcast(EventDefine.PlayClickAudio);
         GameManager.Instance.ResetData();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
@@ -52,6 +53,7 @@ public class ResetPanel : MonoBehaviour
     /// </summary>
     private void OnNoButtonClick()
     {
+        EventCenter.Broadcast(EventDefine.PlayClickAudio);
         img_Bg.DOColor(new Color(img_Bg.color.r, img_Bg.color.g, img_Bg.color.b, 0f), 0.3f);
         dialog.transform.DOScale(Vector3.zero, 0.3f).OnComplete(() =>
         {

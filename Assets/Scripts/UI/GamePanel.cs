@@ -64,6 +64,7 @@ public class GamePanel : MonoBehaviour
     /// </summary>
     private void OnPauseButtonClick()
     {
+        EventCenter.Broadcast(EventDefine.PlayClickAudio);
         btn_Pause.gameObject.SetActive(false);
         btn_Play.gameObject.SetActive(true);
         Time.timeScale = 0;
@@ -75,6 +76,7 @@ public class GamePanel : MonoBehaviour
     /// </summary>
     private void OnPlayButtonClick()
     {
+        EventCenter.Broadcast(EventDefine.PlayClickAudio);
         btn_Play.gameObject.SetActive(false);
         btn_Pause.gameObject.SetActive(true);
         Time.timeScale = 1;

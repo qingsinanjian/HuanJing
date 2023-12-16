@@ -48,6 +48,7 @@ public class GameOverPanel : MonoBehaviour
     /// </summary>
     private void OnRestartButtonClick()
     {
+        EventCenter.Broadcast(EventDefine.PlayClickAudio);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         GameData.IsAgainGame = true;
     }
@@ -56,6 +57,7 @@ public class GameOverPanel : MonoBehaviour
     /// </summary>
     private void OnRankButtonClick()
     {
+        EventCenter.Broadcast(EventDefine.PlayClickAudio);
         EventCenter.Broadcast(EventDefine.ShowRankPanel);
     }
 
@@ -64,6 +66,7 @@ public class GameOverPanel : MonoBehaviour
     /// </summary>
     private void OnHomeButtonClick()
     {
+        EventCenter.Broadcast(EventDefine.PlayClickAudio);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         GameData.IsAgainGame = false;
     }

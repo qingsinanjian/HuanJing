@@ -41,7 +41,8 @@ public class RankPanel : MonoBehaviour
     }
 
     private void OnCloseButtonClick()
-    {        
+    {
+        EventCenter.Broadcast(EventDefine.PlayClickAudio);
         btn_Close.GetComponent<Image>().DOColor(new Color(btnImgColor.r, btnImgColor.g, btnImgColor.b, 0f), 0.3f);
         go_ScoreList.transform.DOScale(Vector3.zero, 0.3f).OnComplete(() =>
         {

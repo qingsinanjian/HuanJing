@@ -21,13 +21,17 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D my_Body;
     private SpriteRenderer spriteRenderer;
     private bool isMove;
+    private AudioSource m_AudioSource;
+
 
     private void Awake()
     {
+        EventCenter.AddListener<bool>(EventDefine.IsMusicOn, IsMusicOn);
         EventCenter.AddListener<int>(EventDefine.ChangeSkin, ChangeSkin);
         vars = ManagerVars.GetManagerVars();
         my_Body = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        m_AudioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -37,7 +41,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
+        EventCenter.RemoveListener<bool>(EventDefine.IsMusicOn, IsMusicOn);
         EventCenter.RemoveListener<int>(EventDefine.ChangeSkin, ChangeSkin);
+    }
+
+    /// <summary>
+    /// 音效是否开启
+    /// </summary>
+    /// <param name="value"></param>
+    private void IsMusicOn(bool value)
+    {
+        m_AudioSource.mute = !value;
     }
 
     /// <summary>
@@ -65,6 +79,7 @@ public class PlayerController : MonoBehaviour
         {
             EventCenter.Broadcast(EventDefine.PlayerMove);
             isMove = true;
+            m_AudioSource.PlayOneShot(vars.jumpClip);
             EventCenter.Broadcast(EventDefine.DecidePath);
             isJumping = true;
             Vector3 mousePos = Input.mousePosition;
@@ -81,6 +96,7 @@ public class PlayerController : MonoBehaviour
         //游戏结束
         if (my_Body.velocity.y < 0 && IsRayPlatform() == false && GameManager.Instance.IsGameOver == false)
         {
+            m_AudioSource.PlayOneShot(vars.fallClip);
             spriteRenderer.sortingLayerName = "Default";
             GetComponent<BoxCollider2D>().enabled = false;
             GameManager.Instance.IsGameOver = true;
@@ -90,6 +106,7 @@ public class PlayerController : MonoBehaviour
 
         if (isJumping && IsRayObstacle() && !GameManager.Instance.IsGameOver)
         {
+            m_AudioSource.PlayOneShot(vars.hitClip);
             GameObject go = ObjectPool.Instance.GetDeathEffect();
             go.SetActive(true);
             go.transform.position = transform.position;
@@ -100,6 +117,7 @@ public class PlayerController : MonoBehaviour
 
         if (transform.position.y - Camera.main.transform.position.y < -6 && GameManager.Instance.IsGameOver == false)
         {
+            m_AudioSource.PlayOneShot(vars.fallClip);
             GameManager.Instance.IsGameOver = true;
             StartCoroutine(DelayShowGameOverPanel());
         }
@@ -200,6 +218,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Pickup"))
         {
+            m_AudioSource.PlayOneShot(vars.diamondClip);
             collision.gameObject.SetActive(false);
             EventCenter.Broadcast(EventDefine.AddDiamond);
         }

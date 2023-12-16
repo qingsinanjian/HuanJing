@@ -201,6 +201,25 @@ public class GameManager : MonoBehaviour
         return gameDiamond;
     }
 
+    /// <summary>
+    /// 设置音效是否开启
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetIsMusicOn(bool value)
+    {
+        isMusicOn = value;
+        Save();
+    }
+
+    /// <summary>
+    /// 获取音效是否开启
+    /// </summary>
+    /// <returns></returns>
+    public bool GetIsMusicOn()
+    {
+        return isMusicOn;
+    }
+
     private void InitGameData()
     {
         Read();

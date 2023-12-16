@@ -29,6 +29,7 @@ public class MainPanel : MonoBehaviour
             gameObject.SetActive(false);
         }
 
+        Sound();
         ChangeSkin(GameManager.Instance.GetCurrentSelectedSkin());
     }
 
@@ -70,6 +71,7 @@ public class MainPanel : MonoBehaviour
     /// </summary>
     private void OnStartButtonClick()
     {
+        EventCenter.Broadcast(EventDefine.PlayClickAudio);
         EventCenter.Broadcast(EventDefine.ShowGamePanel);
         GameManager.Instance.IsGameStarted = true;
         gameObject.SetActive(false);
@@ -80,6 +82,7 @@ public class MainPanel : MonoBehaviour
     /// </summary>
     private void OnShopButtonClick()
     {
+        EventCenter.Broadcast(EventDefine.PlayClickAudio);
         EventCenter.Broadcast(EventDefine.ShowShopPanel);
         gameObject.SetActive(false);
     }
@@ -89,6 +92,7 @@ public class MainPanel : MonoBehaviour
     /// </summary>
     private void OnRankButtonClick()
     {
+        EventCenter.Broadcast(EventDefine.PlayClickAudio);
         EventCenter.Broadcast(EventDefine.ShowRankPanel);
     }
 
@@ -97,7 +101,23 @@ public class MainPanel : MonoBehaviour
     /// </summary>
     private void OnSoundButtonClick()
     {
+        EventCenter.Broadcast(EventDefine.PlayClickAudio);
+        GameManager.Instance.SetIsMusicOn(!GameManager.Instance.GetIsMusicOn());
+        Sound();
+    }
 
+    private void Sound()
+    {
+        if (GameManager.Instance.GetIsMusicOn())
+        {
+            btn_Sound.transform.GetChild(0).GetComponent<Image>().sprite = vars.musicOn;
+        }
+        else
+        {
+            btn_Sound.transform.GetChild(0).GetComponent<Image>().sprite = vars.musicOff;
+        }
+
+        EventCenter.Broadcast(EventDefine.IsMusicOn, GameManager.Instance.GetIsMusicOn());
     }
 
     /// <summary>
@@ -105,6 +125,7 @@ public class MainPanel : MonoBehaviour
     /// </summary>
     private void OnResetButtonClick()
     {
+        EventCenter.Broadcast(EventDefine.PlayClickAudio);
         EventCenter.Broadcast(EventDefine.ShowResetPanel);
     }
 }
