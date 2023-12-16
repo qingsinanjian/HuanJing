@@ -12,4 +12,5 @@
     ShowMainPanel,
     ChangeSkin,
     Hint,
+    ShowResetPanel,
 }

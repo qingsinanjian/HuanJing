@@ -223,4 +223,19 @@ public class GameManager : MonoBehaviour
 
         }
     }
+
+    /// <summary>
+    /// жижУЪ§Он
+    /// </summary>
+    public void ResetData()
+    {
+        isFirstGame = false;
+        isMusicOn = true;
+        bestScoreArr = new int[3];
+        selectSkin = 0;
+        skinUnlocked = new bool[vars.skinSpriteList.Count];
+        skinUnlocked[0] = true;
+        diamondCount = 10;
+        Save();
+    }
 }

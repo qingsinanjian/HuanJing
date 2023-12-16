@@ -9,6 +9,7 @@ public class MainPanel : MonoBehaviour
     private Button btn_Shop;
     private Button btn_Rank;
     private Button btn_Sound;
+    private Button btn_Reset;
 
     private ManagerVars vars;
 
@@ -60,6 +61,8 @@ public class MainPanel : MonoBehaviour
         btn_Rank.onClick.AddListener(OnRankButtonClick);
         btn_Sound = transform.Find("btns/btn_Sound").GetComponent<Button>();
         btn_Sound.onClick.AddListener(OnSoundButtonClick);
+        btn_Reset = transform.Find("btns/btn_Reset").GetComponent<Button>();
+        btn_Reset.onClick.AddListener(OnResetButtonClick);
     }
 
     /// <summary>
@@ -95,5 +98,13 @@ public class MainPanel : MonoBehaviour
     private void OnSoundButtonClick()
     {
 
+    }
+
+    /// <summary>
+    /// ÷ÿ÷√∞¥≈•µ„ª˜
+    /// </summary>
+    private void OnResetButtonClick()
+    {
+        EventCenter.Broadcast(EventDefine.ShowResetPanel);
     }
 }
