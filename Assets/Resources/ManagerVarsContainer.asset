@@ -27,11 +27,17 @@ MonoBehaviour:
   - {fileID: 21300004, guid: 0c7b4faa2ba890e45a9bcb89c3349cde, type: 3}
   - {fileID: 21300008, guid: 0c7b4faa2ba890e45a9bcb89c3349cde, type: 3}
   - {fileID: 21300012, guid: 0c7b4faa2ba890e45a9bcb89c3349cde, type: 3}
+  characterSkinSpriteList:
+  - {fileID: 21300002, guid: 0c7b4faa2ba890e45a9bcb89c3349cde, type: 3}
+  - {fileID: 21300006, guid: 0c7b4faa2ba890e45a9bcb89c3349cde, type: 3}
+  - {fileID: 21300010, guid: 0c7b4faa2ba890e45a9bcb89c3349cde, type: 3}
+  - {fileID: 21300014, guid: 0c7b4faa2ba890e45a9bcb89c3349cde, type: 3}
   skinNameList:
   - "\u592E\u683C\u9C81\u4EBA"
-  - "\u970D\u6BD4\u7279\u4EBA"
   - "\u5FCD\u8005"
+  - "\u970D\u6BD4\u7279\u4EBA"
   - "\u5C0F\u50F5\u5C38"
+  skinPriceList: 01000000020000000300000014000000
   characterPre: {fileID: 403608524897382605, guid: fdf2abc24a13efa46bdc339bbae2fa6b, type: 3}
   normalPlatform: {fileID: 2456333763408464379, guid: 20751041e2c798a4abb8c233141979cc, type: 3}
   commonPlatformGroup:

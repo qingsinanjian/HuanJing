@@ -24,9 +24,29 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        EventCenter.AddListener<int>(EventDefine.ChangeSkin, ChangeSkin);
         vars = ManagerVars.GetManagerVars();
         my_Body = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
+        ChangeSkin(GameManager.Instance.GetCurrentSelectedSkin());
+    }
+
+    private void OnDestroy()
+    {
+        EventCenter.RemoveListener<int>(EventDefine.ChangeSkin, ChangeSkin);
+    }
+
+    /// <summary>
+    /// ¸ü»»Æ¤·ô
+    /// </summary>
+    /// <param name="selectSkin"></param>
+    private void ChangeSkin(int selectSkin)
+    {
+        spriteRenderer.sprite = vars.characterSkinSpriteList[selectSkin];
     }
 
     private void Update()

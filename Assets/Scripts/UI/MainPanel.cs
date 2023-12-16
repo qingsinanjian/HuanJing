@@ -9,9 +9,14 @@ public class MainPanel : MonoBehaviour
     private Button btn_Shop;
     private Button btn_Rank;
     private Button btn_Sound;
+
+    private ManagerVars vars;
+
     private void Awake()
     {
+        vars = ManagerVars.GetManagerVars();
         EventCenter.AddListener(EventDefine.ShowMainPanel, Show);
+        EventCenter.AddListener<int>(EventDefine.ChangeSkin, ChangeSkin);
         Init();        
     }
 
@@ -22,11 +27,22 @@ public class MainPanel : MonoBehaviour
             EventCenter.Broadcast(EventDefine.ShowGamePanel);
             gameObject.SetActive(false);
         }
+
+        ChangeSkin(GameManager.Instance.GetCurrentSelectedSkin());
     }
 
     private void OnDestroy()
     {
         EventCenter.RemoveListener(EventDefine.ShowMainPanel, Show);
+    }
+
+    /// <summary>
+    /// Æ¤·ô¸ü»»,¸ü»»ÉÌµêUIÆ¤·ôÍ¼Æ¬
+    /// </summary>
+    /// <param name="skinIndex"></param>
+    private void ChangeSkin(int skinIndex)
+    {
+        btn_Shop.transform.GetChild(0).GetComponent<Image>().sprite = vars.skinSpriteList[skinIndex];
     }
 
     private void Show()

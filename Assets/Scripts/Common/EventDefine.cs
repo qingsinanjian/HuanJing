@@ -10,4 +10,5 @@
     ShowGameOverPanel,
     ShowShopPanel,
     ShowMainPanel,
+    ChangeSkin,
 }
