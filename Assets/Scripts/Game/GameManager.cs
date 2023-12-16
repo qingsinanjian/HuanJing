@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -64,6 +65,46 @@ public class GameManager : MonoBehaviour
     private void PlayerMove()
     {
         PlayerIsMove = true;
+    }
+
+    /// <summary>
+    /// 保存成绩
+    /// </summary>
+    /// <param name="score"></param>
+    public void SaveScore(int score)
+    {
+        List<int> list = bestScoreArr.ToList();
+        //从大到小排序list
+        list.Sort((x, y) => (-x.CompareTo(y)));
+        bestScoreArr = list.ToArray();
+        int index = -1;
+        for (int i = 0; i < bestScoreArr.Length; i++)
+        {
+            if(score > bestScoreArr[i])
+            {
+                index = i;
+            }
+        }
+
+        if(index == -1)
+        {
+            return;
+        }
+
+        for (int i = bestScoreArr.Length - 1; i > index; i--)
+        {
+            bestScoreArr[i] = bestScoreArr[i - 1];
+        }
+        bestScoreArr[index] = score;
+        Save();
+    }
+    /// <summary>
+    /// 获取做高分
+    /// </summary>
+    /// <returns></returns>
+    public int GetBestScore()
+    {
+        return bestScoreArr.Max();
     }
 
     /// <summary>
