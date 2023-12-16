@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
             || GameManager.Instance.IsGamePaused)
             return;
 
-        if (Input.GetMouseButtonDown(0) && isJumping == false)
+        if (Input.GetMouseButtonDown(0) && isJumping == false && nextPlatformLeft != Vector3.zero)
         {
             EventCenter.Broadcast(EventDefine.PlayerMove);
             isMove = true;

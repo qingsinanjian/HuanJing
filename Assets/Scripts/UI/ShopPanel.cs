@@ -58,6 +58,7 @@ public class ShopPanel : MonoBehaviour
         int price = int.Parse(btn_Buy.GetComponentInChildren<Text>().text);
         if(price > GameManager.Instance.GetAllDiamond())
         {
+            EventCenter.Broadcast(EventDefine.Hint, "×êÊ¯²»×ã");
             return;
         }
         GameManager.Instance.UpdateAllDiamond(-price);
