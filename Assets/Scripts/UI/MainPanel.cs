@@ -36,6 +36,7 @@ public class MainPanel : MonoBehaviour
     private void OnDestroy()
     {
         EventCenter.RemoveListener(EventDefine.ShowMainPanel, Show);
+        EventCenter.RemoveListener<int>(EventDefine.ChangeSkin, ChangeSkin);
     }
 
     /// <summary>

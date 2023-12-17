@@ -63,13 +63,35 @@ public class PlayerController : MonoBehaviour
         spriteRenderer.sprite = vars.characterSkinSpriteList[selectSkin];
     }
 
+    private bool IsPointerOverGameObject(Vector2 mousePosition)
+    {
+        //创建一个点击事件
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = mousePosition;
+        List<RaycastResult> results = new List<RaycastResult>();
+        //向点击位置发射一条射线，检测是否点到UI
+        EventSystem.current.RaycastAll(eventData, results);
+        return results.Count > 0;
+    }
+
     private void Update()
     {
         Debug.DrawRay(rayDown.position, Vector2.down * 1, Color.red);
         Debug.DrawRay(rayLeft.position, Vector2.down * 0.15f, Color.red);
         Debug.DrawRay(rayRight.position, Vector2.down * 0.15f, Color.red);
-        //如果点击在UI上则退出
-        if (EventSystem.current.IsPointerOverGameObject()) return;
+        //if(Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+        //{
+        //    //如果点击在UI上则退出
+        //    int fingerId = Input.GetTouch(0).fingerId;
+        //    if (EventSystem.current.IsPointerOverGameObject(fingerId)) return;
+        //}
+        //else
+        //{
+        //    if (EventSystem.current.IsPointerOverGameObject()) return;
+        //}
+
+        if(IsPointerOverGameObject(Input.mousePosition)) { return; }
+
 
         if (GameManager.Instance.IsGameStarted == false || GameManager.Instance.IsGameOver
             || GameManager.Instance.IsGamePaused)
